@@ -1,0 +1,64 @@
+@import "../../scss-shortcuts";
+
+.bank-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.bank-form-label {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 20px);
+  font-family: $bold-font;
+  font-size: 25px;
+  padding: 10px;
+  border-radius: 10px;
+
+  &:nth-child(odd) {
+    background-color: $background-color;
+  }
+
+  @media(max-width: 600px) {
+    flex-direction: column;
+  }
+}
+
+.label-title {
+  width: 60%;
+  @media(max-width: 600px) {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+.bank-form-input {
+  width: 30%;
+  height: 30px;
+  font-family: $bold-font;
+  text-align: center;
+
+  @media(max-width: 600px) {
+    margin-top: 10px;
+    width: 100%;
+  }
+}
+.submit-btn {
+  width: 150px;
+  height: 50px;
+  font-size: 30px;
+  font-family: $bold-font;
+  border-radius: 10px;
+  margin: 10px auto 0;
+
+  &:hover {
+    background-color: #385538;
+  }
+  &:disabled {
+    background-color: #939393;
+    cursor: auto;
+  }
+}
+
+

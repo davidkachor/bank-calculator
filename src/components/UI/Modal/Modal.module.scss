@@ -1,0 +1,15 @@
+@import "../../../scss-shortcuts";
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+

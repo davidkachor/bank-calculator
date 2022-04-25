@@ -1,0 +1,8 @@
+@import "scss-shortcuts";
+
+* {
+  transition: all ease 0.08s;
+}
+body {
+  background-color: $background-color;
+}

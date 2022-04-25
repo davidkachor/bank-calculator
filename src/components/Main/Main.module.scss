@@ -1,0 +1,23 @@
+@import "src/scss-shortcuts";
+
+.main-title {
+  color: $text-on-background-color;
+  font-family: $bold-font;
+  font-size: 60px;
+  text-align: center;
+  margin: 50px;
+}
+.main-item-list {
+  display: flex;
+  flex-direction: column;
+  background-color: #dad7cd;
+  width: 800px;
+  max-width: calc(100% - 70px);
+  margin: 0 auto 25px;
+  border-radius: 19px;
+  padding: 10px 20px;
+}
+.main-message {
+  font-family: $bold-font;
+  text-align: center;
+}
