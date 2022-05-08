@@ -10,13 +10,6 @@
   justify-content: space-between;
   margin: 10px 0;
 
-  &:hover {
-    transform: scale(1.01);
-    box-shadow: 0 5px 12px #5d5d5d;
-  }
-  &:hover .delete-btn {
-    visibility: visible;
-  }
   @media (max-width: 500px) {
     flex-direction: column;
   }

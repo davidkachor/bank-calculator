@@ -1,8 +1,8 @@
 import styles from "./FixedButtons.module.scss";
 import Button from "../UI/Button/Button";
-import ModalBankForm from "./ModalBankForm";
+import ModalBankForm from "../ModalBankForm/ModalBankForm";
 import { useState } from "react";
-import ModalCalculator from "./ModalCalculator";
+import ModalCalculator from "../ModalCalculator/ModalCalculator";
 
 function FixedButtons(props) {
   const [bankFormIsOpen, setBankFormIsOpen] = useState(false);
@@ -32,7 +32,7 @@ function FixedButtons(props) {
         onClose={closeHandler}
         isOpen={bankFormIsOpen}
       />
-      <ModalCalculator onClose={closeHandler} bankList={props.bankList} isOpen={calculatorIsOpen} />
+      {/*<ModalCalculator onClose={closeHandler} bankList={props.bankList} isOpen={calculatorIsOpen} />*/}
     </div>
   );
 }

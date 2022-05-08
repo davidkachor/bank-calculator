@@ -7,7 +7,7 @@ function Select(props) {
 
   useEffect(() => {
     props.onChange(selectedBank.current.value);
-  }, [selectTrigger]);
+  }, [props, selectTrigger]);
 
   let content = props.bankList.map((e, i) => (
     <option key={i} value={e.id}>
