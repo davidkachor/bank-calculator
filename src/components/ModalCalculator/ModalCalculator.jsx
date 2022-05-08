@@ -14,8 +14,10 @@ function ModalCalculator(props) {
 	const [calculatedAnswer, setCalculatedAnswer] = useState(0)
 	const [isInputsAvailable, setIsInputsAvailable] = useState(false)
 
-	const [selectedBankId, setSelectedBankId] = useState(bankList[0].id)
-	const [selectedBank, setSelectedBank] = useState(bankList[0])
+	const [selectedBankId, setSelectedBankId] = useState(
+		bankList[0] ? bankList[0].id : null
+	)
+	const [selectedBank, setSelectedBank] = useState(bankList[0] || null)
 	const [initLoan, setInitLoan] = useState('')
 	const [downPayment, setDownPayment] = useState('')
 	const [areInputsValid, setAreInputsValid] = useState(false)
@@ -30,13 +32,16 @@ function ModalCalculator(props) {
 	}, [bankList, selectedBankId])
 
 	useEffect(() => {
-		setAreInputsValid(
-			+initLoan <= selectedBank.maxLoan &&
+		if (selectedBank) {
+			setAreInputsValid(
+				+initLoan <= selectedBank.maxLoan &&
 				+initLoan > 0 &&
 				+downPayment >= (+initLoan * selectedBank.minPayment) / 100 &&
 				+downPayment <= +initLoan
-		)
-	}, [initLoan, downPayment, selectedBank.maxLoan, selectedBank.minPayment])
+			)
+		}
+
+	}, [initLoan, downPayment, selectedBank])
 
 	function changeSelectedBankHandler(id) {
 		setIsCalculated(false)
