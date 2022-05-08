@@ -30,7 +30,7 @@ const useBankForm = (
 		}
 	}
 
-	function setStates(name,rate, loan, downPayment, term) {
+	function setStates(name, rate, loan, downPayment, term) {
 		setBankName(name)
 		setInterestRate(rate)
 		setMaxLoan(loan)
@@ -54,7 +54,7 @@ const useBankForm = (
 		minDownPayment,
 		loanTerm,
 		resetStates,
-		setStates
+		setStates,
 	}
 }
 

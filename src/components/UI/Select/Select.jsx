@@ -1,29 +1,24 @@
-import React, { useRef, useEffect, useState } from "react";
-import styles from "./Select.module.scss";
+import React from 'react'
+import styles from './Select.module.scss'
 
 function Select(props) {
-  const selectedBank = useRef();
-  const [selectTrigger, setSelectTrigger] = useState(0);
+	const changeHandler = event => {
+		props.onChange(event.target.value)
+	}
 
-  useEffect(() => {
-    props.onChange(selectedBank.current.value);
-  }, [props, selectTrigger]);
-
-  let content = props.bankList.map((e, i) => (
-    <option key={i} value={e.id}>
-      {e.bankName}
-    </option>
-  ));
-  return (
-    <select
-      disabled={props.disabled}
-      onChange={() => setSelectTrigger((prev) => ++prev)}
-      ref={selectedBank}
-      className={`${styles.select} ${props.className}`}
-    >
-      {content}
-    </select>
-  );
+	return (
+		<select
+			disabled={props.disabled}
+			onChange={changeHandler}
+			className={`${styles.select} ${props.className}`}
+		>
+			{props.bankList.map((e, i) => (
+				<option key={i} value={e.id}>
+					{e.bankName}
+				</option>
+			))}
+		</select>
+	)
 }
 
-export default Select;
+export default Select

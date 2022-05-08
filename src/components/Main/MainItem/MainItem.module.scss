@@ -1,0 +1,74 @@
+@import '../../../scss-shortcuts';
+
+.item {
+	display: flex;
+	flex-direction: row;
+	background-color: $background-color;
+	padding: 17px;
+	border-radius: 15px;
+	line-height: 35px;
+	justify-content: space-between;
+	margin: 10px 0;
+
+	@media (max-width: 500px) {
+		flex-direction: column;
+	}
+}
+.item-section {
+	display: flex;
+	flex-direction: column;
+}
+.item-text {
+	color: $text-on-background-color;
+	font-size: 25px;
+	font-family: $normal-font;
+	font-weight: lighter;
+}
+
+.item-title {
+	font-family: $bold-font;
+}
+
+.btn-container {
+	flex-direction: row;
+	justify-content: end;
+
+	@media (max-width: 1000px) {
+		justify-content: start;
+	}
+}
+
+.item-btn {
+	border-radius: 50%;
+	width: 50px !important;
+	height: 50px !important;
+	margin: 0 5px;
+	@media (max-width: 500px) {
+		margin: 10px 5px 0;
+	}
+}
+.red-btn {
+	background-color: #ab1717 !important;
+
+	&:hover {
+		background-color: #cb0707 !important;
+	}
+
+	img {
+		filter: invert(97%) sepia(13%) saturate(189%) hue-rotate(341deg)
+			brightness(90%) contrast(89%);
+	}
+}
+.green-btn {
+	&:hover {
+		background-color: green !important;
+	}
+	&:disabled {
+		background-color: gray !important;
+		cursor: auto;
+	}
+	img {
+		filter: invert(97%) sepia(13%) saturate(189%) hue-rotate(341deg)
+			brightness(90%) contrast(89%);
+	}
+}

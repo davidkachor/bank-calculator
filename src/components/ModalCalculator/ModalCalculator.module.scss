@@ -1,54 +1,54 @@
 @import '../../scss-shortcuts';
 
 .calculator-form {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 .form-title {
-  width: 100%;
-  font-family: $bold-font;
-  font-size: 25px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 5px 0;
+	width: 100%;
+	font-family: $bold-font;
+	font-size: 25px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 5px 0;
 
-  @media (max-width: 520px) {
-    flex-direction: column;
-  }
+	@media (max-width: 520px) {
+		flex-direction: column;
+	}
 }
 
 .form-input {
-  height: 33px;
-  border-radius: 10px;
-  font-family: $bold-font;
-  text-align: center;
-  width: 200px;
+	height: 33px;
+	border-radius: 10px;
+	font-family: $bold-font;
+	text-align: center;
+	width: 200px;
 
-  @media (max-width: 520px) {
-    margin-top: 10px;
-  }
+	@media (max-width: 520px) {
+		margin-top: 10px;
+	}
 }
 
 .submit-btn {
-  width: 180px;
-  height: 50px;
-  font-size: 30px;
-  font-family: $bold-font;
-  border-radius: 10px;
-  margin: 10px auto 0;
+	width: 180px;
+	height: 50px;
+	font-size: 30px;
+	font-family: $bold-font;
+	border-radius: 10px;
+	margin: 10px auto 0;
 
-  &:hover {
-    background-color: #385538;
-  }
-  &:disabled {
-    background-color: #939393;
-    cursor: auto;
-  }
+	&:hover {
+		background-color: #385538;
+	}
+	&:disabled {
+		background-color: #939393;
+		cursor: auto;
+	}
 }
 .calculator-answer {
-  text-align: center;
-  font-family: $bold-font;
-  font-size: 55px;
-  color: darkred;
+	text-align: center;
+	font-family: $bold-font;
+	font-size: 55px;
+	color: darkred;
 }

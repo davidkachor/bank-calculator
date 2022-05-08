@@ -1,5 +1,5 @@
 import styles from './Main.module.scss'
-import MainItem from './MainItem'
+import MainItem from './MainItem/MainItem'
 import { useSelector } from 'react-redux'
 
 function Main() {

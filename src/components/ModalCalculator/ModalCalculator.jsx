@@ -1,70 +1,11 @@
-import React, { useState, useReducer, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './ModalCalculator.module.scss'
-import ModalContent from '../UI/Modal/ModalContent'
+import ModalContent from '../UI/Modal/ModalContent/ModalContent'
 import Select from '../UI/Select/Select'
 import Input from '../UI/Input/Input'
 import Button from '../UI/Button/Button'
 import calculator from '../../calculator/calculator'
 import { useSelector } from 'react-redux'
-
-function inputDataReducer(state, action) {
-	switch (action.type) {
-		default:
-			return state
-		case 'RESET_INPUT_DATA':
-			return {
-				...state,
-				bankObj: {
-					id: '0',
-					bankName: '',
-					interestRate: 0,
-					maxLoan: 0,
-					minPayment: 0,
-					loanTerm: 0,
-				},
-				initLoanValue: 0,
-				isInitLoanValid: false,
-				downPaymentValue: 0,
-				isDownPaymentValid: false,
-				calculatorFormIsValid: false,
-			}
-		case 'SET_BANK_ID':
-			return { ...state, selectedBankId: action.id }
-		case 'SET_BANK':
-			return { ...state, bankObj: action.bankObj }
-		case 'USER_INPUT_INITIAL_LOAN':
-			return {
-				...state,
-				initLoanValue: +action.value,
-			}
-		case 'IS_INPUT_INIT_LOAN_VALID':
-			return {
-				...state,
-				isInitLoanValid:
-					state.initLoanValue <= state.bankObj.maxLoan &&
-					state.initLoanValue > 0,
-			}
-		case 'USER_INPUT_DOWN_PAYMENT':
-			return {
-				...state,
-				downPaymentValue: +action.value,
-			}
-		case 'IS_INPUT_DOWN_PAYMENT_VALID':
-			return {
-				...state,
-				isDownPaymentValid:
-					state.downPaymentValue >=
-						(state.initLoanValue * state.bankObj.minPayment) / 100 &&
-					state.downPaymentValue <= state.initLoanValue,
-			}
-		case 'SET_IS_FORM_VALID':
-			return {
-				...state,
-				calculatorFormIsValid:
-					state.isDownPaymentValid && state.isInitLoanValid,
-			}
-	}
-}
 
 function ModalCalculator(props) {
 	const bankList = useSelector(state => state.bankList)
@@ -72,72 +13,51 @@ function ModalCalculator(props) {
 	const [isCalculated, setIsCalculated] = useState(false)
 	const [calculatedAnswer, setCalculatedAnswer] = useState(0)
 	const [isInputsAvailable, setIsInputsAvailable] = useState(false)
-	const [inputData, dispatchInputData] = useReducer(inputDataReducer, {
-		selectedBankId: '0',
-		bankObj: {},
-		initLoanValue: 0,
-		isInitLoanValid: false,
-		downPaymentValue: 0,
-		isDownPaymentValid: false,
-		calculatorFormIsValid: false,
-	})
 
-	useEffect(() => {
-		if (bankList.length > 0) {
-			dispatchInputData({ type: 'SET_BANK_ID', id: bankList[0].id })
-		}
-	}, [bankList])
+	const [selectedBankId, setSelectedBankId] = useState(bankList[0].id)
+	const [selectedBank, setSelectedBank] = useState(bankList[0])
+	const [initLoan, setInitLoan] = useState('')
+	const [downPayment, setDownPayment] = useState('')
+	const [areInputsValid, setAreInputsValid] = useState(false)
 
 	useEffect(() => {
 		if (bankList.length === 0) {
-			dispatchInputData({ type: 'RESET_INPUT_DATA' })
 			setIsInputsAvailable(false)
 		} else {
+			setSelectedBank(bankList.find(e => e.id === selectedBankId))
 			setIsInputsAvailable(true)
-			dispatchInputData({
-				type: 'SET_BANK',
-				bankObj: bankList.find(e => e.id === inputData.selectedBankId),
-			})
 		}
-	}, [bankList, inputData.selectedBankId])
+	}, [bankList, selectedBankId])
 
 	useEffect(() => {
-		dispatchInputData({ type: 'IS_INPUT_INIT_LOAN_VALID' })
-		dispatchInputData({ type: 'IS_INPUT_DOWN_PAYMENT_VALID' })
-	}, [inputData.initLoanValue, inputData.downPaymentValue, inputData.bankObj])
-
-	useEffect(() => {
-		dispatchInputData({ type: 'SET_IS_FORM_VALID' })
-	}, [
-		inputData.isInitLoanValid,
-		inputData.isDownPaymentValid,
-		inputData.bankObj,
-	])
+		setAreInputsValid(
+			+initLoan <= selectedBank.maxLoan &&
+				+initLoan > 0 &&
+				+downPayment >= (+initLoan * selectedBank.minPayment) / 100 &&
+				+downPayment <= +initLoan
+		)
+	}, [initLoan, downPayment, selectedBank.maxLoan, selectedBank.minPayment])
 
 	function changeSelectedBankHandler(id) {
-		dispatchInputData({ type: 'SET_BANK_ID', id: id })
 		setIsCalculated(false)
+		setSelectedBankId(id)
 	}
 	function changeInitLoanHandler(e) {
-		dispatchInputData({
-			type: 'USER_INPUT_INITIAL_LOAN',
-			value: e.target.value,
-		})
+		setInitLoan(e.target.value)
+		setIsCalculated(false)
 	}
 	function changeDownPaymentHandler(e) {
-		dispatchInputData({
-			type: 'USER_INPUT_DOWN_PAYMENT',
-			value: e.target.value,
-		})
+		setDownPayment(e.target.value)
+		setIsCalculated(false)
 	}
 	function clickHandler() {
 		setIsCalculated(true)
 		setCalculatedAnswer(
 			calculator(
-				inputData.initLoanValue,
-				inputData.downPaymentValue,
-				inputData.bankObj.loanTerm,
-				inputData.bankObj.interestRate
+				initLoan,
+				downPayment,
+				selectedBank.loanTerm,
+				selectedBank.interestRate
 			)
 		)
 	}
@@ -147,11 +67,7 @@ function ModalCalculator(props) {
 	}
 
 	return (
-		<ModalContent
-			isOpen={props.isOpen}
-			onClose={closeHandler}
-			title={'Calculator'}
-		>
+		<ModalContent onClose={closeHandler} title={'Calculator'}>
 			<div className={styles['calculator-form']}>
 				<label className={styles['form-title']}>
 					Choose the bank!
@@ -164,7 +80,7 @@ function ModalCalculator(props) {
 				</label>
 				<Input
 					disabled={!isInputsAvailable}
-					value={inputData.initLoanValue}
+					value={initLoan}
 					labelClassName={styles['form-title']}
 					inputClassName={styles['form-input']}
 					type={'number'}
@@ -175,7 +91,7 @@ function ModalCalculator(props) {
 				</Input>
 				<Input
 					disabled={!isInputsAvailable}
-					value={inputData.downPaymentValue}
+					value={downPayment}
 					labelClassName={styles['form-title']}
 					inputClassName={styles['form-input']}
 					type={'number'}
@@ -189,7 +105,7 @@ function ModalCalculator(props) {
 				)}
 				<Button
 					onClick={clickHandler}
-					disabled={!inputData.calculatorFormIsValid}
+					disabled={!areInputsValid}
 					className={styles['submit-btn']}
 				>
 					Calculate

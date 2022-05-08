@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from './ModalBankForm.module.scss'
-import ModalContent from '../UI/Modal/ModalContent'
+import ModalContent from '../UI/Modal/ModalContent/ModalContent'
 import Input from '../UI/Input/Input'
 import Button from '../UI/Button/Button'
 import useBankForm from '../../hooks/use-bank-form'
@@ -52,11 +52,7 @@ function ModalBankForm(props) {
 	}
 
 	return (
-		<ModalContent
-			onClose={props.onClose}
-			isOpen={props.isOpen}
-			title={'Adding new Bank'}
-		>
+		<ModalContent onClose={props.onClose} title={'Adding new Bank'}>
 			<form onSubmit={submitHandler} className={styles['bank-form']} action="">
 				<Input
 					value={bankName}

@@ -4,11 +4,11 @@ import deleteIcon from './Icons/delete-icon.svg'
 import confirmIcon from './Icons/confirm-icon.svg'
 import cancelIcon from './Icons/cancel-icon.svg'
 import editIcon from './Icons/edit-icon.svg'
-import Button from '../UI/Button/Button'
-import Input from '../UI/Input/Input'
+import Button from '../../UI/Button/Button'
+import Input from '../../UI/Input/Input'
 import { useDispatch } from 'react-redux'
-import { editBank, removeBank } from '../../store/bank-slice'
-import useBankForm from '../../hooks/use-bank-form'
+import { editBank, removeBank } from '../../../store/bank-slice'
+import useBankForm from '../../../hooks/use-bank-form'
 
 function MainItem(props) {
 	const dispatch = useDispatch()
